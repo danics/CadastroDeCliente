@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CadastroDeClientes.Data
@@ -12,5 +9,6 @@ namespace CadastroDeClientes.Data
             : base(options)
         {
         }
+        public DbSet<Cliente> Clientes {get ; set;}
     }
 }
