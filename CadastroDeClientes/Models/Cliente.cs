@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CadastroDeClientes.Data
+namespace CadastroDeClientes.Models
 {
     public class Cliente
     {
