@@ -1,12 +1,11 @@
 ﻿@model CadastroDeClientes.Models.Cliente
+
 @{
-    ViewData["Title"] = "Novo Cliente";
+    ViewData["Title"] = "Edição de Cliente";
 }
 
-<h1>Novo Cliente</h1>
-
 <div class="col-md-6 offset-md-3">
-    <form asp-action="Create" asp-controller="Clientes">
+    <form asp-action="Edit" asp-controller="Clientes">
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label asp-for="PrimeiroNome" class="control-label"></label>
@@ -21,7 +20,6 @@
                 <input asp-for="Cpf" class="form-control" />
             </div>
         </div>
-
         <div class="form-group">
             <label asp-for="TelefoneDDD" class="control-label"></label>
             <input asp-for="TelefoneDDD" class="form-control" />
@@ -65,4 +63,3 @@
         </button>
     </form>
 </div>
-
