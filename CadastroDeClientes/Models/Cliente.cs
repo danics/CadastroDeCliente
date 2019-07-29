@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CadastroDeClientes.Models.Enums;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,6 +19,7 @@ namespace CadastroDeClientes.Models
         public string Endereco { get; set; }
         public string Bairro { get; set; }
         public string Cidade { get; set; }
+        public Estado Estado { get; set; }
         [DisplayName("Numero")]
         public string EnderecoNumero { get; set; }
         public string Cep { get; set; }
