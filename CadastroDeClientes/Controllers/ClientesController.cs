@@ -80,6 +80,17 @@ namespace CadastroDeClientes.Controllers
 
         }
 
+        public async Task<IActionResult> Detail(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var clientes = await _contexto.Clientes.FindAsync(Id);
+            return View(clientes);
+        }
+
         //GET DELETE
         public async Task<IActionResult> Delete(int? Id)
         {
