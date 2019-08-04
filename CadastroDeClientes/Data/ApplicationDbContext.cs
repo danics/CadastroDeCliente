@@ -11,5 +11,11 @@ namespace CadastroDeClientes.Data
         {
         }
         public DbSet<Cliente> Clientes {get ; set;}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cliente>().OwnsOne(c => c.Nome);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -1,15 +1,18 @@
 ﻿using CadastroDeClientes.Models.Enums;
-using CadastroDeClientes.Models.Value_Objects;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CadastroDeClientes.Models
+namespace CadastroDeClientes.Models.ViewModels
 {
-    public class Cliente
+    public class ClienteViewModel
     {
-        public int Id { get; set; }            
-        public Nome Nome { get; set; }        
+        public int Id { get; set; }
+        public string PrimeiroNome { get; set; }
+        public string Sobrenome { get; set; }
         [Required]
         public string Cpf { get; set; }
         [DisplayName("DDD")]
@@ -27,6 +30,5 @@ namespace CadastroDeClientes.Models
         [DisplayName("Data de Nascimento")]
         public DateTime? DataDeNascimento { get; set; }
         public string Email { get; set; }
-
     }
 }
