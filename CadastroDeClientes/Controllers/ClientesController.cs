@@ -32,9 +32,10 @@ namespace CadastroDeClientes.Controllers
             {
                 clientesViewModel.Add(new ClienteViewModel
                 {
+                    Id = cliente.Id,
                     PrimeiroNome = cliente.Nome.PrimeiroNome,
                     Sobrenome = cliente.Nome.Sobrenome,
-                    Cpf = cliente.Cpf,
+                    Cpf = cliente.Cpf.Numero,
                     TelefoneDDD = cliente.TelefoneDDD,
                     TelefoneNumero = cliente.TelefoneNumero,
                     Endereco = cliente.Endereco,
@@ -61,29 +62,35 @@ namespace CadastroDeClientes.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ClienteViewModel clienteViewModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Cliente cliente = new Cliente
-                {                    
-                    Nome = new Nome(clienteViewModel.PrimeiroNome, clienteViewModel.Sobrenome),
-                    Cpf = clienteViewModel.Cpf,
-                    TelefoneDDD = clienteViewModel.TelefoneDDD,
-                    TelefoneNumero = clienteViewModel.TelefoneNumero,
-                    Endereco = clienteViewModel.Endereco,
-                    Bairro = clienteViewModel.Bairro,
-                    Cidade = clienteViewModel.Cidade,
-                    Estado = clienteViewModel.Estado,
-                    EnderecoNumero = clienteViewModel.EnderecoNumero,
-                    Cep = clienteViewModel.Cep,
-                    DataDeNascimento = clienteViewModel.DataDeNascimento,
-                    Email = clienteViewModel.Email
-                };
+                if (ModelState.IsValid)
+                {
+                    Cliente cliente = new Cliente
+                    {
+                        Nome = new Nome(clienteViewModel.PrimeiroNome, clienteViewModel.Sobrenome),
+                        Cpf = new Cpf(clienteViewModel.Cpf),
+                        TelefoneDDD = clienteViewModel.TelefoneDDD,
+                        TelefoneNumero = clienteViewModel.TelefoneNumero,
+                        Endereco = clienteViewModel.Endereco,
+                        Bairro = clienteViewModel.Bairro,
+                        Cidade = clienteViewModel.Cidade,
+                        Estado = clienteViewModel.Estado,
+                        EnderecoNumero = clienteViewModel.EnderecoNumero,
+                        Cep = clienteViewModel.Cep,
+                        DataDeNascimento = clienteViewModel.DataDeNascimento,
+                        Email = clienteViewModel.Email
+                    };
 
-                _contexto.Add(cliente);
-                await _contexto.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _contexto.Add(cliente);
+                    await _contexto.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-
+            catch(ArgumentException ex)
+            {
+                ModelState.AddModelError("Cpf", ex.Message);                
+            }            
             return View(clienteViewModel);
         }
 
@@ -107,7 +114,7 @@ namespace CadastroDeClientes.Controllers
                 Id = cliente.Id,
                 PrimeiroNome = cliente.Nome.PrimeiroNome,
                 Sobrenome = cliente.Nome.Sobrenome,
-                Cpf = cliente.Cpf,
+                Cpf = cliente.Cpf.Numero,
                 TelefoneDDD = cliente.TelefoneDDD,
                 TelefoneNumero = cliente.TelefoneNumero,
                 Endereco = cliente.Endereco,
@@ -128,31 +135,37 @@ namespace CadastroDeClientes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit (int Id, ClienteViewModel ClienteViewModel)
         {
-          
-            if (ModelState.IsValid)
+            try
             {
-                var cliente = await _contexto.Clientes.FindAsync(Id);               
-                
-                ClienteViewModel.Id = cliente.Id;
-                ClienteViewModel.PrimeiroNome = cliente.Nome.PrimeiroNome;
-                ClienteViewModel.Sobrenome = cliente.Nome.Sobrenome;
-                ClienteViewModel.Cpf = cliente.Cpf;
-                ClienteViewModel.Endereco = cliente.Endereco;
-                ClienteViewModel.TelefoneDDD = cliente.TelefoneDDD;
-                ClienteViewModel.TelefoneNumero = cliente.TelefoneNumero;
-                ClienteViewModel.Bairro = cliente.Bairro;
-                ClienteViewModel.Cidade = cliente.Cidade;
-                ClienteViewModel.Estado = cliente.Estado;
-                ClienteViewModel.EnderecoNumero = cliente.EnderecoNumero;
-                ClienteViewModel.Cep = cliente.Cep;
-                ClienteViewModel.DataDeNascimento = cliente.DataDeNascimento;
-                ClienteViewModel.Email = cliente.Email;
+                if (ModelState.IsValid)
+                {
+                    Cliente cliente = new Cliente
+                    {
+                        Id = ClienteViewModel.Id,
+                        Nome = new Nome(ClienteViewModel.PrimeiroNome, ClienteViewModel.Sobrenome),
+                        Cpf = new Cpf(ClienteViewModel.Cpf),
+                        TelefoneDDD = ClienteViewModel.TelefoneDDD,
+                        TelefoneNumero = ClienteViewModel.TelefoneNumero,
+                        Endereco = ClienteViewModel.Endereco,
+                        Bairro = ClienteViewModel.Bairro,
+                        Cidade = ClienteViewModel.Cidade,
+                        Estado = ClienteViewModel.Estado,
+                        EnderecoNumero = ClienteViewModel.EnderecoNumero,
+                        Cep = ClienteViewModel.Cep,
+                        DataDeNascimento = ClienteViewModel.DataDeNascimento,
+                        Email = ClienteViewModel.Email,
+                    };
 
-                _contexto.Update(cliente);
-                await _contexto.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                    _contexto.Update(cliente);
+                    await _contexto.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("Cpf", ex.Message);
+            }
+
             return View(ClienteViewModel);
         }
 
@@ -163,8 +176,26 @@ namespace CadastroDeClientes.Controllers
                 return NotFound();
             }
 
-            var clientes = await _contexto.Clientes.FindAsync(Id);
-            return View(clientes);
+            var cliente = await _contexto.Clientes.FindAsync(Id);
+            ClienteViewModel ClienteViewModel = new ClienteViewModel
+            {
+                Id = cliente.Id,
+                PrimeiroNome = cliente.Nome.PrimeiroNome,
+                Sobrenome = cliente.Nome.Sobrenome,
+                Cpf = cliente.Cpf.Numero,
+                TelefoneDDD = cliente.TelefoneDDD,
+                TelefoneNumero = cliente.TelefoneNumero,
+                Endereco = cliente.Endereco,
+                Bairro = cliente.Bairro,
+                Cidade = cliente.Cidade,
+                Estado = cliente.Estado,
+                EnderecoNumero = cliente.EnderecoNumero,
+                Cep = cliente.Cep,
+                DataDeNascimento = cliente.DataDeNascimento,
+                Email = cliente.Email
+            };            
+
+            return View(ClienteViewModel);
         }
 
         //GET DELETE
@@ -182,7 +213,25 @@ namespace CadastroDeClientes.Controllers
                 return NotFound();
             }
 
-            return View(cliente);
+            ClienteViewModel ClienteViewModel = new ClienteViewModel
+            {
+                Id = cliente.Id,
+                PrimeiroNome = cliente.Nome.PrimeiroNome,
+                Sobrenome = cliente.Nome.Sobrenome,
+                Cpf = cliente.Cpf.Numero,
+                TelefoneDDD = cliente.TelefoneDDD,
+                TelefoneNumero = cliente.TelefoneNumero,
+                Endereco = cliente.Endereco,
+                Bairro = cliente.Bairro,
+                Cidade = cliente.Cidade,
+                Estado = cliente.Estado,
+                EnderecoNumero = cliente.EnderecoNumero,
+                Cep = cliente.Cep,
+                DataDeNascimento = cliente.DataDeNascimento,
+                Email = cliente.Email
+            };
+
+            return View(ClienteViewModel);
         }
 
         [HttpPost]

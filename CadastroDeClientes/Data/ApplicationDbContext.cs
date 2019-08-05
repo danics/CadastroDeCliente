@@ -16,6 +16,9 @@ namespace CadastroDeClientes.Data
         {
             modelBuilder.Entity<Cliente>().OwnsOne(c => c.Nome);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Cliente>().OwnsOne(cpf => cpf.Cpf);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace CadastroDeClientes.Models
         public int Id { get; set; }            
         public Nome Nome { get; set; }        
         [Required]
-        public string Cpf { get; set; }
+        public Cpf Cpf { get; set; }
         [DisplayName("DDD")]
         public string TelefoneDDD { get; set; }
         [DisplayName("Telefone")]

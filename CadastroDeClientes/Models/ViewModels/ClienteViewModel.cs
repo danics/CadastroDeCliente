@@ -12,8 +12,8 @@ namespace CadastroDeClientes.Models.ViewModels
     {
         public int Id { get; set; }
         public string PrimeiroNome { get; set; }
-        public string Sobrenome { get; set; }
-        [Required]
+        public string Sobrenome { get; set; }        
+        [Required(AllowEmptyStrings = false, ErrorMessage = "CPF é obrigatório.")]
         public string Cpf { get; set; }
         [DisplayName("DDD")]
         public string TelefoneDDD { get; set; }
