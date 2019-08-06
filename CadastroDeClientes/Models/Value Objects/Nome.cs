@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CadastroDeClientes.Models.Value_Objects
 {
@@ -10,7 +7,7 @@ namespace CadastroDeClientes.Models.Value_Objects
         public string PrimeiroNome { get; private set; }
         public string Sobrenome { get; private set; }
 
-        public string NomeCompleto => PrimeiroNome + "" + Sobrenome;
+        public string NomeCompleto => PrimeiroNome + "" + Sobrenome;        
 
         public Nome(string primeiroNome, string sobrenome)
         {

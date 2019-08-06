@@ -12,10 +12,10 @@ namespace CadastroDeClientes.Models
         public Nome Nome { get; set; }        
         [Required]
         public Cpf Cpf { get; set; }
-        [DisplayName("DDD")]
-        public string TelefoneDDD { get; set; }
-        [DisplayName("Telefone")]
-        public string TelefoneNumero { get; set; }
+        //[DisplayName("DDD")]
+       // public string TelefoneDDD { get; set; }
+        //[DisplayName("Telefone")]
+        public Telefone Telefone { get; set; }
         public string Endereco { get; set; }
         public string Bairro { get; set; }
         public string Cidade { get; set; }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CadastroDeClientes.Models;
@@ -36,8 +35,8 @@ namespace CadastroDeClientes.Controllers
                     PrimeiroNome = cliente.Nome.PrimeiroNome,
                     Sobrenome = cliente.Nome.Sobrenome,
                     Cpf = cliente.Cpf.Numero,
-                    TelefoneDDD = cliente.TelefoneDDD,
-                    TelefoneNumero = cliente.TelefoneNumero,
+                    TelefoneDDD = cliente.Telefone.DDD,
+                    TelefoneNumero = cliente.Telefone.TelefoneNumero,
                     Endereco = cliente.Endereco,
                     Bairro = cliente.Bairro,
                     Cidade = cliente.Cidade,
@@ -70,8 +69,8 @@ namespace CadastroDeClientes.Controllers
                     {
                         Nome = new Nome(clienteViewModel.PrimeiroNome, clienteViewModel.Sobrenome),
                         Cpf = new Cpf(clienteViewModel.Cpf),
-                        TelefoneDDD = clienteViewModel.TelefoneDDD,
-                        TelefoneNumero = clienteViewModel.TelefoneNumero,
+                        //TelefoneDDD = clienteViewModel.TelefoneDDD,
+                        Telefone = new Telefone(clienteViewModel.TelefoneDDD, clienteViewModel.TelefoneNumero),
                         Endereco = clienteViewModel.Endereco,
                         Bairro = clienteViewModel.Bairro,
                         Cidade = clienteViewModel.Cidade,
@@ -115,8 +114,8 @@ namespace CadastroDeClientes.Controllers
                 PrimeiroNome = cliente.Nome.PrimeiroNome,
                 Sobrenome = cliente.Nome.Sobrenome,
                 Cpf = cliente.Cpf.Numero,
-                TelefoneDDD = cliente.TelefoneDDD,
-                TelefoneNumero = cliente.TelefoneNumero,
+                TelefoneDDD = cliente.Telefone.DDD,
+                TelefoneNumero = cliente.Telefone.TelefoneNumero,
                 Endereco = cliente.Endereco,
                 Bairro = cliente.Bairro,
                 Cidade = cliente.Cidade,
@@ -144,8 +143,8 @@ namespace CadastroDeClientes.Controllers
                         Id = ClienteViewModel.Id,
                         Nome = new Nome(ClienteViewModel.PrimeiroNome, ClienteViewModel.Sobrenome),
                         Cpf = new Cpf(ClienteViewModel.Cpf),
-                        TelefoneDDD = ClienteViewModel.TelefoneDDD,
-                        TelefoneNumero = ClienteViewModel.TelefoneNumero,
+                        Telefone = new Telefone(ClienteViewModel.TelefoneDDD, ClienteViewModel.TelefoneNumero),
+                        //TelefoneNumero = ClienteViewModel.TelefoneNumero,
                         Endereco = ClienteViewModel.Endereco,
                         Bairro = ClienteViewModel.Bairro,
                         Cidade = ClienteViewModel.Cidade,
@@ -183,8 +182,8 @@ namespace CadastroDeClientes.Controllers
                 PrimeiroNome = cliente.Nome.PrimeiroNome,
                 Sobrenome = cliente.Nome.Sobrenome,
                 Cpf = cliente.Cpf.Numero,
-                TelefoneDDD = cliente.TelefoneDDD,
-                TelefoneNumero = cliente.TelefoneNumero,
+                TelefoneDDD = cliente.Telefone.DDD,
+                TelefoneNumero = cliente.Telefone.TelefoneNumero,
                 Endereco = cliente.Endereco,
                 Bairro = cliente.Bairro,
                 Cidade = cliente.Cidade,
@@ -219,8 +218,8 @@ namespace CadastroDeClientes.Controllers
                 PrimeiroNome = cliente.Nome.PrimeiroNome,
                 Sobrenome = cliente.Nome.Sobrenome,
                 Cpf = cliente.Cpf.Numero,
-                TelefoneDDD = cliente.TelefoneDDD,
-                TelefoneNumero = cliente.TelefoneNumero,
+                TelefoneDDD = cliente.Telefone.DDD,
+                TelefoneNumero = cliente.Telefone.TelefoneNumero,
                 Endereco = cliente.Endereco,
                 Bairro = cliente.Bairro,
                 Cidade = cliente.Cidade,
