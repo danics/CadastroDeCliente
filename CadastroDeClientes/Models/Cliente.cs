@@ -11,18 +11,14 @@ namespace CadastroDeClientes.Models
         public int Id { get; set; }            
         public Nome Nome { get; set; }        
         [Required]
-        public Cpf Cpf { get; set; }
-        //[DisplayName("DDD")]
-       // public string TelefoneDDD { get; set; }
-        //[DisplayName("Telefone")]
+        public Cpf Cpf { get; set; }       
         public Telefone Telefone { get; set; }
-        public string Endereco { get; set; }
-        public string Bairro { get; set; }
-        public string Cidade { get; set; }
-        public Estado Estado { get; set; }
-        [DisplayName("Numero")]
-        public string EnderecoNumero { get; set; }
-        public string Cep { get; set; }
+        public Endereco Endereco { get; set; }
+        //public string Bairro { get; set; }
+        //public string Cidade { get; set; }
+        public Estado Estado { get; set; }        
+        //public string EnderecoNumero { get; set; }
+        //public string Cep { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Data de Nascimento")]
         public DateTime? DataDeNascimento { get; set; }

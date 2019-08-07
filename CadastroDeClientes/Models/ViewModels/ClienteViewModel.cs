@@ -24,7 +24,7 @@ namespace CadastroDeClientes.Models.ViewModels
         public string Cidade { get; set; }
         public Estado Estado { get; set; }
         [DisplayName("Numero")]
-        public string EnderecoNumero { get; set; }
+        public int EnderecoNumero { get; set; }
         public string Cep { get; set; }
         [DataType(DataType.Date)]
         [DisplayName("Data de Nascimento")]
