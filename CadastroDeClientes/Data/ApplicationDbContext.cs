@@ -28,6 +28,9 @@ namespace CadastroDeClientes.Data
 
             modelBuilder.Entity<Cliente>().OwnsOne(date => date.DataDeNascimento);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Cliente>().OwnsOne(e => e.Email);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

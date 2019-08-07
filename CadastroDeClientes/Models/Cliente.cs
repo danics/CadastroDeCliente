@@ -15,7 +15,7 @@ namespace CadastroDeClientes.Models
         public Endereco Endereco { get; set; }        
         public Estado Estado { get; set; }                               
         public DataDeNascimento DataDeNascimento { get; set; }
-        public string Email { get; set; }
+        public Email Email { get; set; }
 
     }
 }

@@ -44,7 +44,7 @@ namespace CadastroDeClientes.Controllers
                     EnderecoNumero = cliente.Endereco.Numero,
                     Cep = cliente.Endereco.Cep,
                     DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                    Email = cliente.Email
+                    Email = cliente.Email.EnderecoEmail
                 });
             }
             return View(clientesViewModel);
@@ -73,7 +73,7 @@ namespace CadastroDeClientes.Controllers
                         Endereco = new Endereco(clienteViewModel.Endereco, clienteViewModel.Bairro, clienteViewModel.Cidade, clienteViewModel.EnderecoNumero, clienteViewModel.Cep),                        
                         Estado = clienteViewModel.Estado,                        
                         DataDeNascimento = new DataDeNascimento(clienteViewModel.DataDeNascimento),
-                        Email = clienteViewModel.Email
+                        Email = new Email(clienteViewModel.Email)
                     };
 
                     _contexto.Add(cliente);
@@ -118,7 +118,7 @@ namespace CadastroDeClientes.Controllers
                 EnderecoNumero = cliente.Endereco.Numero,
                 Cep = cliente.Endereco.Cep,
                 DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                Email = cliente.Email
+                Email = cliente.Email.EnderecoEmail
             };
 
             return View(ClienteViewModel);
@@ -142,7 +142,7 @@ namespace CadastroDeClientes.Controllers
                         Endereco = new Endereco(ClienteViewModel.Endereco, ClienteViewModel.Bairro, ClienteViewModel.Cidade, ClienteViewModel.EnderecoNumero, ClienteViewModel.Cep),                        
                         Estado = ClienteViewModel.Estado,
                         DataDeNascimento = new DataDeNascimento(ClienteViewModel.DataDeNascimento),
-                        Email = ClienteViewModel.Email,
+                        Email = new Email(ClienteViewModel.Email)
                     };
 
                     _contexto.Update(cliente);
@@ -181,7 +181,7 @@ namespace CadastroDeClientes.Controllers
                 EnderecoNumero = cliente.Endereco.Numero,
                 Cep = cliente.Endereco.Cep,
                 DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                Email = cliente.Email
+                Email = cliente.Email.EnderecoEmail
             };            
 
             return View(ClienteViewModel);
@@ -217,7 +217,7 @@ namespace CadastroDeClientes.Controllers
                 EnderecoNumero = cliente.Endereco.Numero,
                 Cep = cliente.Endereco.Cep,
                 DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                Email = cliente.Email
+                Email = cliente.Email.EnderecoEmail
             };
 
             return View(ClienteViewModel);
