@@ -25,6 +25,9 @@ namespace CadastroDeClientes.Data
 
             modelBuilder.Entity<Cliente>().OwnsOne(endereco => endereco.Endereco);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Cliente>().OwnsOne(date => date.DataDeNascimento);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
