@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using CadastroDeClientes.Models.ViewModels;
 using CadastroDeClientes.Models.Value_Objects;
+using AutoMapper;
 
 namespace CadastroDeClientes.Controllers
 {
@@ -15,38 +16,20 @@ namespace CadastroDeClientes.Controllers
     public class ClientesController : Controller
     {
         private readonly ApplicationDbContext _contexto;
+        private readonly IMapper _mapper;
 
-        public ClientesController(ApplicationDbContext contexto)
+        public ClientesController(ApplicationDbContext contexto, IMapper mapper)
         {
             _contexto = contexto;
+            _mapper = mapper;
         }
 
         //INDEX
         public async Task<IActionResult> Index()
         {
-            var clientes = await _contexto.Clientes.ToListAsync();
-            List<ClienteViewModel> clientesViewModel = new List<ClienteViewModel>();
-
-            foreach (var cliente in clientes)
-            {
-                clientesViewModel.Add(new ClienteViewModel
-                {
-                    Id = cliente.Id,
-                    PrimeiroNome = cliente.Nome.PrimeiroNome,
-                    Sobrenome = cliente.Nome.Sobrenome,
-                    Cpf = cliente.Cpf.Numero,
-                    TelefoneDDD = cliente.Telefone.DDD,
-                    TelefoneNumero = cliente.Telefone.TelefoneNumero,
-                    Endereco = cliente.Endereco.Rua,
-                    Bairro = cliente.Endereco.Bairro,
-                    Cidade = cliente.Endereco.Cidade,
-                    Estado = cliente.Estado,
-                    EnderecoNumero = cliente.Endereco.Numero,
-                    Cep = cliente.Endereco.Cep,
-                    DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                    Email = cliente.Email.EnderecoEmail
-                });
-            }
+            var clientes = await _contexto.Clientes.ToListAsync();            
+            var clientesViewModel = _mapper.Map<List<ClienteViewModel>>(clientes);           
+            
             return View(clientesViewModel);
         }
 
@@ -65,16 +48,7 @@ namespace CadastroDeClientes.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Cliente cliente = new Cliente
-                    {
-                        Nome = new Nome(clienteViewModel.PrimeiroNome, clienteViewModel.Sobrenome),
-                        Cpf = new Cpf(clienteViewModel.Cpf),
-                        Telefone = new Telefone(clienteViewModel.TelefoneDDD, clienteViewModel.TelefoneNumero),
-                        Endereco = new Endereco(clienteViewModel.Endereco, clienteViewModel.Bairro, clienteViewModel.Cidade, clienteViewModel.EnderecoNumero, clienteViewModel.Cep),                        
-                        Estado = clienteViewModel.Estado,                        
-                        DataDeNascimento = new DataDeNascimento(clienteViewModel.DataDeNascimento),
-                        Email = new Email(clienteViewModel.Email)
-                    };
+                    var cliente = _mapper.Map<Cliente>(clienteViewModel);                    
 
                     _contexto.Add(cliente);
                     await _contexto.SaveChangesAsync();
@@ -90,38 +64,17 @@ namespace CadastroDeClientes.Controllers
 
         //GET EDIT
         public async Task<IActionResult> Edit(int Id)
-        {
-            if (Id == null)
-            {
-                return NotFound();
-            }
-
+        {            
             var cliente = await _contexto.Clientes.FindAsync(Id);
+
+            var clienteViewModel = _mapper.Map<ClienteViewModel>(cliente);
 
             if (cliente == null)
             {
                 return NotFound();
-            }
+            }            
 
-            ClienteViewModel ClienteViewModel = new ClienteViewModel
-            {
-                Id = cliente.Id,
-                PrimeiroNome = cliente.Nome.PrimeiroNome,
-                Sobrenome = cliente.Nome.Sobrenome,
-                Cpf = cliente.Cpf.Numero,
-                TelefoneDDD = cliente.Telefone.DDD,
-                TelefoneNumero = cliente.Telefone.TelefoneNumero,
-                Endereco = cliente.Endereco.Rua,
-                Bairro = cliente.Endereco.Bairro,
-                Cidade = cliente.Endereco.Cidade,
-                Estado = cliente.Estado,
-                EnderecoNumero = cliente.Endereco.Numero,
-                Cep = cliente.Endereco.Cep,
-                DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                Email = cliente.Email.EnderecoEmail
-            };
-
-            return View(ClienteViewModel);
+            return View(clienteViewModel);
         }
     
         //POST EDIT
@@ -133,17 +86,7 @@ namespace CadastroDeClientes.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Cliente cliente = new Cliente
-                    {
-                        Id = ClienteViewModel.Id,
-                        Nome = new Nome(ClienteViewModel.PrimeiroNome, ClienteViewModel.Sobrenome),
-                        Cpf = new Cpf(ClienteViewModel.Cpf),
-                        Telefone = new Telefone(ClienteViewModel.TelefoneDDD, ClienteViewModel.TelefoneNumero),
-                        Endereco = new Endereco(ClienteViewModel.Endereco, ClienteViewModel.Bairro, ClienteViewModel.Cidade, ClienteViewModel.EnderecoNumero, ClienteViewModel.Cep),                        
-                        Estado = ClienteViewModel.Estado,
-                        DataDeNascimento = new DataDeNascimento(ClienteViewModel.DataDeNascimento),
-                        Email = new Email(ClienteViewModel.Email)
-                    };
+                    var cliente = _mapper.Map<Cliente>(ClienteViewModel);                    
 
                     _contexto.Update(cliente);
                     await _contexto.SaveChangesAsync();
@@ -166,25 +109,9 @@ namespace CadastroDeClientes.Controllers
             }
 
             var cliente = await _contexto.Clientes.FindAsync(Id);
-            ClienteViewModel ClienteViewModel = new ClienteViewModel
-            {
-                Id = cliente.Id,
-                PrimeiroNome = cliente.Nome.PrimeiroNome,
-                Sobrenome = cliente.Nome.Sobrenome,
-                Cpf = cliente.Cpf.Numero,
-                TelefoneDDD = cliente.Telefone.DDD,
-                TelefoneNumero = cliente.Telefone.TelefoneNumero,
-                Endereco = cliente.Endereco.Rua,
-                Bairro = cliente.Endereco.Bairro,
-                Cidade = cliente.Endereco.Cidade,
-                Estado = cliente.Estado,
-                EnderecoNumero = cliente.Endereco.Numero,
-                Cep = cliente.Endereco.Cep,
-                DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                Email = cliente.Email.EnderecoEmail
-            };            
+            var clienteViewModel = _mapper.Map<ClienteViewModel>(cliente);            
 
-            return View(ClienteViewModel);
+            return View(clienteViewModel);
         }
 
         //GET DELETE
@@ -202,25 +129,9 @@ namespace CadastroDeClientes.Controllers
                 return NotFound();
             }
 
-            ClienteViewModel ClienteViewModel = new ClienteViewModel
-            {
-                Id = cliente.Id,
-                PrimeiroNome = cliente.Nome.PrimeiroNome,
-                Sobrenome = cliente.Nome.Sobrenome,
-                Cpf = cliente.Cpf.Numero,
-                TelefoneDDD = cliente.Telefone.DDD,
-                TelefoneNumero = cliente.Telefone.TelefoneNumero,
-                Endereco = cliente.Endereco.Rua,
-                Bairro = cliente.Endereco.Bairro,
-                Cidade = cliente.Endereco.Cidade,
-                Estado = cliente.Estado,
-                EnderecoNumero = cliente.Endereco.Numero,
-                Cep = cliente.Endereco.Cep,
-                DataDeNascimento = cliente.DataDeNascimento.DataNascimento,
-                Email = cliente.Email.EnderecoEmail
-            };
+            var clienteViewModel = _mapper.Map<ClienteViewModel>(cliente);            
 
-            return View(ClienteViewModel);
+            return View(clienteViewModel);
         }
 
         [HttpPost]

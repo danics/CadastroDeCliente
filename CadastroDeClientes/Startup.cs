@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using CadastroDeClientes.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 namespace CadastroDeClientes
 {
@@ -43,6 +44,8 @@ namespace CadastroDeClientes
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
