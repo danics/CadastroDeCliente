@@ -14,6 +14,7 @@ using CadastroDeClientes.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 
 namespace CadastroDeClientes
 {
@@ -43,7 +44,10 @@ namespace CadastroDeClientes
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
 
             services.AddAutoMapper(typeof(Startup));
         }

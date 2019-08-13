@@ -28,7 +28,7 @@ namespace CadastroDeClientes.Models.Value_Objects
                 return string.IsNullOrEmpty(Numero) ? true : false;
             }
 
-            private bool Valida(string numero)
+            public bool Valida(string numero)
             {
                 if (string.IsNullOrEmpty(numero))
                     return false;
