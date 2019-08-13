@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CadastroDeClientes.Models.ViewModels
@@ -11,6 +12,7 @@ namespace CadastroDeClientes.Models.ViewModels
     public class ClienteViewModel
     {
         public int Id { get; set; }
+        [DisplayName("Nome")]
         public string PrimeiroNome { get; set; }
         public string Sobrenome { get; set; }        
         [Required(AllowEmptyStrings = false, ErrorMessage = "CPF é obrigatório.")]
@@ -30,5 +32,5 @@ namespace CadastroDeClientes.Models.ViewModels
         [DisplayName("Data de Nascimento")]
         public DateTime? DataDeNascimento { get; set; }
         public string Email { get; set; }
-    }
+    }    
 }

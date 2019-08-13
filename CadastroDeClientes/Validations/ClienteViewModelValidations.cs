@@ -12,24 +12,25 @@ namespace CadastroDeClientes.Validations
     {
         public ClienteViewModelValidations()
         {
-            RuleFor(x => x.PrimeiroNome).MinimumLength(2).WithMessage("Primeiro Nome deve ter pelo menos 2 caracteres");
-            RuleFor(x => x.Sobrenome).MinimumLength(2);
-            RuleFor(x => x.TelefoneDDD).MinimumLength(2);
-            RuleFor(x => x.TelefoneNumero).MinimumLength(9);
-            RuleFor(x => x.Endereco).MinimumLength(2);
-            RuleFor(x => x.Cidade).MinimumLength(2);
-            RuleFor(x => x.Bairro).MinimumLength(2);            
-            RuleFor(x => x.Cep).MinimumLength(8);
-            RuleFor(x => x.Email).EmailAddress();
+            RuleFor(x => x.PrimeiroNome).MinimumLength(2).WithMessage("Nome deve ter ao menos 2 caracteres.");
+            RuleFor(x => x.Sobrenome).MinimumLength(2).WithMessage("Sobrenome deve ter ao menos 2 caracteres.");
+            RuleFor(x => x.TelefoneDDD).MinimumLength(2).WithMessage("DDD deve ter ao menos 2 números.");
+            RuleFor(x => x.TelefoneNumero).MinimumLength(8).WithMessage("Telefone deve ter ao menos 8 números.");
+            RuleFor(x => x.Endereco).MinimumLength(2).WithMessage("Endereço deve ter ao menos 2 caracteres.");
+            RuleFor(x => x.Cidade).MinimumLength(2).WithMessage("Cidade deve ter ao menos 2 caracteres.");
+            RuleFor(x => x.Bairro).MinimumLength(2).WithMessage("Cidade deve ter ao menos 2 caracteres.");            
+            RuleFor(x => x.Cep).MinimumLength(8).WithMessage("Cep deve ter ao menos 8 caracteres.");
+            RuleFor(x => x.Email).EmailAddress().WithMessage("Endereço de email inválido.");
 
             RuleFor(x => x.Cpf).Custom((cpf, context) =>
             {
                 Cpf validacpf = Cpf.Vazio;
+
                 if(!validacpf.Valida(cpf))
                 {
                     context.AddFailure("Número de CPF inválido.");
                 }
-            });
+            });            
 
         }
     }
