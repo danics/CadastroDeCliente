@@ -1,8 +1,7 @@
-﻿<script type="text/javascript">
- $(document).ready(function () {
-       ("#Cep").focusout(function () {
+﻿ $(document).ready(function () {
+       $("#Cep").focusout(function () {
 
-            var cep = (this).val();
+            var cep = $(this).val();
 
             $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
                 if (!("erro" in dados)) {
@@ -25,84 +24,57 @@
         function ConverteEstado(sigla) {
             switch(sigla) {
                 case 'AL':
-                    return 1;
-                    break;
+                    return 1;                   
                 case 'AP':
-                    return 2;
-                    break;
+                    return 2;                    
                 case 'AM':
-                    return 3;
-                    break;
+                    return 3;                    
                 case 'BA':
-                    return 4;
-                    break;
+                    return 4;                    
                 case 'CE':
-                    return 5;
-                    break;
+                    return 5;                    
                 case 'ES':
-                    return 6;
-                    break;
+                    return 6;                    
                 case 'GO':
-                    return 7;
-                    break;
+                    return 7;                    
                 case 'MA':
-                    return 8;
-                    break;
+                    return 8;                    
                 case 'MT':
-                    return 9;
-                    break;
+                    return 9;                    
                 case 'MS':
-                    return 10;
-                    break;
+                    return 10;                    
                 case 'MG':
-                    return 11;
-                    break;
+                    return 11;                    
                 case 'PA':
-                    return 12;
-                    break;
+                    return 12;                    
                 case 'PB':
-                    return 13;
-                    break;
+                    return 13;                    
                 case 'PR':
-                    return 14;
-                    break;
+                    return 14;                    
                 case 'PE':
-                    return 15;
-                    break;
+                    return 15;                    
                 case 'PI':
-                    return 16;
-                    break;
+                    return 16;                    
                 case 'RJ':
-                    return 17;
-                    break;
+                    return 17;                    
                 case 'RN':
-                    return 18;
-                    break;
+                    return 18;                    
                 case 'RS':
-                    return 19;
-                    break;
+                    return 19;                    
                 case 'RO':
-                    return 20;
-                    break;
+                    return 20;                    
                 case 'RR':
-                    return 21;
-                    break;
+                    return 21;                    
                 case 'SC':
-                    return 22;
-                    break;
+                    return 22;                    
                 case 'SP':
-                    return 23;
-                    break;
+                    return 23;                    
                 case 'SE':
-                    return 24;
-                    break;
+                    return 24;                    
                 case 'TO':
-                    return 25;
-                    break;
+                    return 25;                    
                 case 'DF':
-                    return 26;
-                    break;
+                    return 26;                    
          }
        }
 });
-</script>
