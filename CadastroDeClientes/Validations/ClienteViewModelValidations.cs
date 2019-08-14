@@ -18,8 +18,9 @@ namespace CadastroDeClientes.Validations
             RuleFor(x => x.TelefoneNumero).MinimumLength(8).WithMessage("Telefone deve ter ao menos 8 números.");
             RuleFor(x => x.Endereco).MinimumLength(2).WithMessage("Endereço deve ter ao menos 2 caracteres.");
             RuleFor(x => x.Cidade).MinimumLength(2).WithMessage("Cidade deve ter ao menos 2 caracteres.");
-            RuleFor(x => x.Bairro).MinimumLength(2).WithMessage("Cidade deve ter ao menos 2 caracteres.");            
-            RuleFor(x => x.Cep).MinimumLength(8).WithMessage("Cep deve ter ao menos 8 caracteres.");
+            RuleFor(x => x.Bairro).MinimumLength(2).WithMessage("Cidade deve ter ao menos 2 caracteres.");
+            RuleFor(x => x.Cep).MinimumLength(8).WithMessage("Cep deve ter ao menos 8 caracteres.")
+                .MaximumLength(8).WithMessage("Cep deve ter no máximo 8 caracteres.");
             RuleFor(x => x.Email).EmailAddress().WithMessage("Endereço de email inválido.");
 
             RuleFor(x => x.Cpf).Custom((cpf, context) =>

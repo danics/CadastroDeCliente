@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Novo Cliente";
 }
+<script type="text/javascript" src="~/js/ViaCep.js"></script>
 
 <h1>Novo Cliente</h1>
 
@@ -24,94 +25,71 @@
                 <input asp-for="Cpf" class="form-control" />
                 <span asp-validation-for="Cpf" class="text-danger"></span>
             </div>
-        </div>        
-            <div id = "Endereco" class="form-row">
-                <div class="form-group col-md-5">
-                    <label asp-for="Endereco" class="control-label"></label>
-                    <input asp-for="Endereco" class="form-control" />
-                    <span asp-validation-for="Endereco" class="text-danger"></span>
-                </div>
-                <div id = "Bairro" class="form-group col-md-5">
-                    <label asp-for="Bairro" class="control-label"></label>
-                    <input asp-for="Bairro" class="form-control" />
-                    <span asp-validation-for="Bairro" class="text-danger"></span>
-                </div>
-                <div id = "Numero" class="form-group col-md-2">
-                    <label asp-for="EnderecoNumero" class="control-label"></label>
-                    <input asp-for="EnderecoNumero" class="form-control" />
-                    <span asp-validation-for="EnderecoNumero" class="text-danger"></span>
-                </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label asp-for="Endereco" class="control-label"></label>
+                <input asp-for="Endereco" class="form-control" id="Endereco" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
-            <div id = "Cidade" class="form-row">
-                <div class="form-group col-md-7">
-                    <label asp-for="Cidade" class="control-label"></label>
-                    <input asp-for="Cidade" class="form-control" />
-                    <span asp-validation-for="Cidade" class="text-danger"></span>
-                </div>
-                <div id = "Estado" class="form-group col-md-2">
-                    <label asp-for="Estado" class="control-label"></label>
-                    <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<Estado>()"></select>
-                    <span asp-validation-for="Estado" class="text-danger"></span>
-                </div>
-                <div id = "Cep" class="form-group col-md-3">
-                    <label asp-for="Cep" class="control-label"></label>
-                    <input asp-for="Cep" class="form-control" />
-                    <span asp-validation-for="Cep" class="text-danger"></span>
-                </div>
+            <div class="form-group col-md-5">
+                <label asp-for="Bairro" class="control-label"></label>
+                <input asp-for="Bairro" class="form-control" id="Bairro" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-2">
-                    <label asp-for="TelefoneDDD" class="control-label"></label>
-                    <input asp-for="TelefoneDDD" class="form-control" />
-                    <span asp-validation-for="TelefoneDDD" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-5">
-                    <label asp-for="TelefoneNumero" class="control-label"></label>
-                    <input asp-for="TelefoneNumero" class="form-control" />
-                    <span asp-validation-for="TelefoneNumero" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-5">
-                    <label asp-for="DataDeNascimento" class="control-label"></label>
-                    <input asp-for="DataDeNascimento" class="form-control" />
-                    <span asp-validation-for="DataDeNascimento" class="text-danger"></span>
-                </div>
+            <div class="form-group col-md-2">
+                <label asp-for="EnderecoNumero" class="control-label"></label>
+                <input asp-for="EnderecoNumero" class="form-control" id="Numero" />
+                <span asp-validation-for="EnderecoNumero" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-7">
+                <label asp-for="Cidade" class="control-label"></label>
+                <input asp-for="Cidade" class="form-control" id="Cidade" />
+                <span asp-validation-for="Cidade" class="text-danger"></span>
             </div>
+            <div class="form-group col-md-2">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado" id="Estado" class="form-control" asp-items="Html.GetEnumSelectList<Estado>()"></select>
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label asp-for="Cep" class="control-label"></label>
+                <input type="number" asp-for="Cep" class="form-control" id="Cep" />
+                <span asp-validation-for="Cep" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label asp-for="TelefoneDDD" class="control-label"></label>
+                <input asp-for="TelefoneDDD" class="form-control" />
+                <span asp-validation-for="TelefoneDDD" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5">
+                <label asp-for="TelefoneNumero" class="control-label"></label>
+                <input asp-for="TelefoneNumero" class="form-control" />
+                <span asp-validation-for="TelefoneNumero" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5">
+                <label asp-for="DataDeNascimento" class="control-label"></label>
+                <input asp-for="DataDeNascimento" class="form-control" />
+                <span asp-validation-for="DataDeNascimento" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
 
-            <input type="submit" value="Salvar" class="btn btn-primary" />
-            <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick='history.go(-1)'>
-                Voltar
-            </button>
+        <input type="submit" value="Salvar" class="btn btn-primary" />
+        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" onclick='history.go(-1)'>
+            Voltar
+        </button>
     </form>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-<script type="text/javascript">
-    $("#Cep").focusout(function () {
-        
-            $.getJSON("https://viacep.com.br/ws/" + Cep + "/json/?callback=?", function (dados) {
-
-                if (!("erro" in dados)) {
-                    //Atualiza os campos com os valores da consulta.
-                    $("#Endereco").val(dados.logradouro);
-                    $("#Bairro").val(dados.bairro);
-                    $("#Cidade").val(dados.localidade);
-                    $("#Estado").val(dados.uf); 
-                    $("#Numero").focus();
-                } 
-                else {
-                    //CEP pesquisado não foi encontrado.
-                    limpa_formulário_cep();
-                    alert("CEP não encontrado.");
-                }
-            });
-        }              
-</script>
-
-
