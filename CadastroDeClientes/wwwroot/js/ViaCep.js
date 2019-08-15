@@ -1,7 +1,10 @@
-﻿ $(document).ready(function () {
-       $("#Cep").focusout(function () {
+﻿$(document).ready(function () {
+    $("#Cep").focusout(function () {
 
-            var cep = $(this).val();
+        var cep = $(this).val().replace(/\D/g, '');
+        var validacep = /^[0-9]{8}$/;
+
+        if (validacep.test(cep)) {
 
             $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
                 if (!("erro" in dados)) {
@@ -12,13 +15,18 @@
                     $("#Estado").val(ConverteEstado(dados.uf));
                     $("#Numero").focus();
                 }
-
                 else {
-                    //CEP pesquisado não foi encontrado.
-                    limpa_formulário_cep();
+                    //Cep pesquisado não foi encontrado.
+                    LimpaFormularioCep();
                     alert("CEP não encontrado.");
                 }
             });
+        }
+        else {
+            //cep sem valor, limpa formulário.
+            LimpaFormularioCep();
+            alert("Favor informar um CEP válido.");
+        }
         });
 
         function ConverteEstado(sigla) {
@@ -76,5 +84,13 @@
                 case 'DF':
                     return 26;                    
          }
-       }
+     }
+
+     function LimpaFormularioCep() {
+         $("#Cep").val("");
+         $("#Endereco").val("");
+         $("#Bairro").val("");
+         $("#Cidade").val("");
+         $("#Estado").val("");        
+     }
 });
