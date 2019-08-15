@@ -1,33 +1,40 @@
 ﻿$(document).ready(function () {
-    $("#Cep").focusout(function () {
+    try {
+        $("#Cep").focusout(function () {
 
-        var cep = $(this).val().replace(/\D/g, '');
-        var validacep = /^[0-9]{8}$/;
+            var cep = $(this).val().replace(/\D/g, '');
+            var validacep = /^[0-9]{8}$/;
 
-        if (validacep.test(cep)) {
+            if (validacep.test(cep)) {
 
-            $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
-                if (!("erro" in dados)) {
-                    //Atualiza os campos com os valores da consulta.
-                    $("#Endereco").val(dados.logradouro);
-                    $("#Bairro").val(dados.bairro);
-                    $("#Cidade").val(dados.localidade);
-                    $("#Estado").val(ConverteEstado(dados.uf));
-                    $("#Numero").focus();
-                }
-                else {
-                    //Cep pesquisado não foi encontrado.
-                    LimpaFormularioCep();
-                    alert("CEP não encontrado.");
-                }
-            });
-        }
-        else {
-            //cep sem valor, limpa formulário.
-            LimpaFormularioCep();
-            alert("Favor informar um CEP válido.");
-        }
+                $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+                    if (!("erro" in dados)) {
+                        //Atualiza os campos com os valores da consulta.
+                        $("#Endereco").val(dados.logradouro);
+                        $("#Bairro").val(dados.bairro);
+                        $("#Cidade").val(dados.localidade);
+                        $("#Estado").val(ConverteEstado(dados.uf));
+                        $("#Numero").focus();
+                        $("#BotaoSalvar").attr("disabled", false);
+                    }
+                    else {
+                        //Cep pesquisado não foi encontrado.
+                        LimpaFormularioCep();
+                        alert("CEP não encontrado.");
+                        $("#BotaoSalvar").attr("disabled", true);
+                    }
+                });
+            }
+            else {
+                //cep sem valor, limpa formulário.
+                LimpaFormularioCep();
+                alert("Favor informar um CEP válido.");
+                $("#BotaoSalvar").attr("disabled", true);
+            }
         });
+    } catch (error) {
+        alert("Não foi possível consultar o CEP, por favor, preencha o endereço manualmente.")
+    }
 
         function ConverteEstado(sigla) {
             switch(sigla) {
