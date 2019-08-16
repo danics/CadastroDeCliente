@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using CadastroDeClientes.Repositorio;
+using CadastroDeClientes.Models;
 
 namespace CadastroDeClientes
 {
@@ -50,6 +52,8 @@ namespace CadastroDeClientes
 
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<DbContext, ApplicationDbContext>();
+            services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

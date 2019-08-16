@@ -16,10 +16,12 @@ namespace CadastroDeClientes.Controllers
     public class ClientesController : Controller
     {
         private readonly ApplicationDbContext _contexto;
+        private readonly IClienteRepositorio _clienteRepositorio;
         private readonly IMapper _mapper;
 
-        public ClientesController(ApplicationDbContext contexto, IMapper mapper)
+        public ClientesController(IClienteRepositorio clienteRepositorio, ApplicationDbContext contexto, IMapper mapper)
         {
+            _clienteRepositorio = clienteRepositorio;
             _contexto = contexto;
             _mapper = mapper;
         }
@@ -27,7 +29,7 @@ namespace CadastroDeClientes.Controllers
         //INDEX
         public async Task<IActionResult> Index()
         {
-            var clientes = await _contexto.Clientes.ToListAsync();            
+            var clientes = await _clienteRepositorio.GetAllListAsync();           
             var clientesViewModel = _mapper.Map<List<ClienteViewModel>>(clientes);           
             
             return View(clientesViewModel);
@@ -48,10 +50,9 @@ namespace CadastroDeClientes.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var cliente = _mapper.Map<Cliente>(clienteViewModel);                    
+                    var cliente = _mapper.Map<Cliente>(clienteViewModel);
 
-                    _contexto.Add(cliente);
-                    await _contexto.SaveChangesAsync();
+                    _clienteRepositorio.Add(cliente);
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -64,16 +65,15 @@ namespace CadastroDeClientes.Controllers
 
         //GET EDIT
         public async Task<IActionResult> Edit(int Id)
-        {            
-            var cliente = await _contexto.Clientes.FindAsync(Id);
-
-            var clienteViewModel = _mapper.Map<ClienteViewModel>(cliente);
+        {
+            Cliente cliente = await _clienteRepositorio.FindById(Id);            
 
             if (cliente == null)
             {
                 return NotFound();
-            }            
+            }
 
+            var clienteViewModel = _mapper.Map<ClienteViewModel>(cliente);
             return View(clienteViewModel);
         }
     
@@ -86,10 +86,8 @@ namespace CadastroDeClientes.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var cliente = _mapper.Map<Cliente>(ClienteViewModel);                    
-
-                    _contexto.Update(cliente);
-                    await _contexto.SaveChangesAsync();
+                    var cliente = _mapper.Map<Cliente>(ClienteViewModel);
+                    await _clienteRepositorio.Update(Id);                   
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -101,28 +99,19 @@ namespace CadastroDeClientes.Controllers
             return View(ClienteViewModel);
         }
 
-        public async Task<IActionResult> Detail(int? Id)
-        {
-            if (Id == null)
-            {
-                return NotFound();
-            }
-
-            var cliente = await _contexto.Clientes.FindAsync(Id);
+        public async Task<IActionResult> Detail(int Id)
+        {            
+            var cliente = await _clienteRepositorio.FindById(Id);
             var clienteViewModel = _mapper.Map<ClienteViewModel>(cliente);            
 
             return View(clienteViewModel);
         }
 
         //GET DELETE
-        public async Task<IActionResult> Delete(int? Id)
+        [HttpGet]
+        public async Task<IActionResult> Delete (int Id, Cliente cliente)
         {
-            if(Id == null)
-            {
-                return NotFound();
-            }
-
-            var cliente = await _contexto.Clientes.FindAsync(Id);
+            cliente = await _clienteRepositorio.FindById(Id);
 
             if (cliente == null)
             {
@@ -138,9 +127,7 @@ namespace CadastroDeClientes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int Id)
         {
-            var cliente = await _contexto.Clientes.FindAsync(Id);
-            _contexto.Clientes.Remove(cliente);
-            await _contexto.SaveChangesAsync();
+            await _clienteRepositorio.Remove(Id);            
             return RedirectToAction(nameof(Index));
         }
     }
