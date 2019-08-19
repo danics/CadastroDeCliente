@@ -52,6 +52,7 @@ namespace CadastroDeClientes
 
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
         }
 

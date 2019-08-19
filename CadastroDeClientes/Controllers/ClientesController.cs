@@ -43,7 +43,7 @@ namespace CadastroDeClientes.Controllers
 
         //POST CREATE
         [HttpPost]
-        public IActionResult Create(ClienteViewModel clienteViewModel)
+        public async Task<IActionResult> Create(ClienteViewModel clienteViewModel)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace CadastroDeClientes.Controllers
                 {
                     var cliente = _mapper.Map<Cliente>(clienteViewModel);
 
-                    _clienteRepositorio.Add(cliente);
+                    await _clienteRepositorio.Add(cliente);
                     return RedirectToAction(nameof(Index));
                 }
             }

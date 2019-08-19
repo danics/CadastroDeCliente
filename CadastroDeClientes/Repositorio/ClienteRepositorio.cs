@@ -12,13 +12,11 @@ namespace CadastroDeClientes.Repositorio
 {
     public class ClienteRepositorio : IClienteRepositorio
     {
-        private readonly ApplicationDbContext _contexto;
-        private readonly IMapper _mapper;
+        private readonly ApplicationDbContext _contexto;        
 
-        public ClienteRepositorio(ApplicationDbContext contexto, IMapper mapper)
+        public ClienteRepositorio(ApplicationDbContext contexto)
         {
-            _contexto = contexto;
-            _mapper = mapper;
+            _contexto = contexto;            
         }
 
         public async Task<IEnumerable<Cliente>> GetAll()
@@ -26,10 +24,10 @@ namespace CadastroDeClientes.Repositorio
             return await _contexto.Clientes.ToListAsync();
         }
 
-        public Cliente Add(Cliente cliente)
+        public async Task<Cliente> Add(Cliente cliente)
         {
             _contexto.Clientes.Add(cliente);
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
             return cliente;
         }
 
@@ -40,8 +38,7 @@ namespace CadastroDeClientes.Repositorio
         }
 
         public async Task<Cliente> Update(Cliente cliente)
-        {
-            //var cliente = await FindById(Id);
+        {            
             _contexto.Clientes.Update(cliente);
             await _contexto.SaveChangesAsync();
             return cliente;
