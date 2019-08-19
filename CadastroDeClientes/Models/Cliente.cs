@@ -1,8 +1,5 @@
 ﻿using CadastroDeClientes.Models.Enums;
 using CadastroDeClientes.Models.Value_Objects;
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace CadastroDeClientes.Models
 {

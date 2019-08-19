@@ -15,21 +15,20 @@ namespace CadastroDeClientes.Controllers
     [Authorize]
     public class ClientesController : Controller
     {
-        private readonly ApplicationDbContext _contexto;
+        //private readonly ApplicationDbContext _contexto;
         private readonly IClienteRepositorio _clienteRepositorio;
         private readonly IMapper _mapper;
 
-        public ClientesController(IClienteRepositorio clienteRepositorio, ApplicationDbContext contexto, IMapper mapper)
+        public ClientesController(IClienteRepositorio clienteRepositorio, IMapper mapper)
         {
-            _clienteRepositorio = clienteRepositorio;
-            _contexto = contexto;
+            _clienteRepositorio = clienteRepositorio;          
             _mapper = mapper;
         }
 
         //INDEX
         public async Task<IActionResult> Index()
         {
-            var clientes = await _clienteRepositorio.GetAllListAsync();           
+            var clientes = await _clienteRepositorio.GetAll();           
             var clientesViewModel = _mapper.Map<List<ClienteViewModel>>(clientes);           
             
             return View(clientesViewModel);
@@ -44,7 +43,7 @@ namespace CadastroDeClientes.Controllers
 
         //POST CREATE
         [HttpPost]
-        public async Task<IActionResult> Create(ClienteViewModel clienteViewModel)
+        public IActionResult Create(ClienteViewModel clienteViewModel)
         {
             try
             {
@@ -80,14 +79,14 @@ namespace CadastroDeClientes.Controllers
         //POST EDIT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (int Id, ClienteViewModel ClienteViewModel)
+        public async Task<IActionResult> Edit (ClienteViewModel ClienteViewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     var cliente = _mapper.Map<Cliente>(ClienteViewModel);
-                    await _clienteRepositorio.Update(Id);                   
+                    await _clienteRepositorio.Update(cliente);                   
                     return RedirectToAction(nameof(Index));
                 }
             }

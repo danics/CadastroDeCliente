@@ -21,7 +21,7 @@ namespace CadastroDeClientes.Repositorio
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Cliente>> GetAllListAsync()
+        public async Task<IEnumerable<Cliente>> GetAll()
         {
             return await _contexto.Clientes.ToListAsync();
         }
@@ -39,9 +39,9 @@ namespace CadastroDeClientes.Repositorio
             return cliente;
         }
 
-        public async Task<Cliente> Update(int Id)
+        public async Task<Cliente> Update(Cliente cliente)
         {
-            var cliente = await FindById(Id);
+            //var cliente = await FindById(Id);
             _contexto.Clientes.Update(cliente);
             await _contexto.SaveChangesAsync();
             return cliente;

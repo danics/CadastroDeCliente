@@ -1,11 +1,7 @@
 ﻿using CadastroDeClientes.Models.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CadastroDeClientes.Models.ViewModels
 {
